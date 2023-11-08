@@ -1,14 +1,13 @@
-name: Build
+name: Test
 
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
 
 jobs:
-  plugin_test:
-    name: asdf plugin test
+  build:
     strategy:
       matrix:
         os:
@@ -19,4 +18,5 @@ jobs:
       - name: asdf_plugin_test
         uses: asdf-vm/actions/plugin-test@v2
         with:
-          command: krm-functions --help
+          command: image-updater -h
+          version: image-updater-v1.0.0

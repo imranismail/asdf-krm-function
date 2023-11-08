@@ -2,10 +2,8 @@
 
 set -euo pipefail
 
-# TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for krm-functions.
-GH_REPO="https://github.com/imranismail/asdf-krm-functions"
-TOOL_NAME="krm-functions"
-TOOL_TEST="krm-functions --help"
+GH_REPO="https://github.com/imranismail/krm-function-registry"
+TOOL_NAME="krm-function"
 
 fail() {
 	echo -e "asdf-$TOOL_NAME: $*"
@@ -14,7 +12,7 @@ fail() {
 
 curl_opts=(-fsSL)
 
-# NOTE: You might want to remove this if krm-functions is not hosted on GitHub releases.
+# NOTE: You might want to remove this if krm-function is not hosted on GitHub releases.
 if [ -n "${GITHUB_API_TOKEN:-}" ]; then
 	curl_opts=("${curl_opts[@]}" -H "Authorization: token $GITHUB_API_TOKEN")
 fi
@@ -32,19 +30,17 @@ list_github_tags() {
 
 list_all_versions() {
 	# TODO: Adapt this. By default we simply list the tag names from GitHub releases.
-	# Change this function if krm-functions has other means of determining installable versions.
+	# Change this function if krm-function has other means of determining installable versions.
 	list_github_tags
-	# List all directories in the krm-functions folder
-	# ls -d "$ASDF_PLUGIN_PATH"/krm-functions/* | xargs basename
 }
 
 download_release() {
-	local version filename url
+	local version filename url os arch
 	version="$1"
 	filename="$2"
-
-	# TODO: Adapt the release URL convention for krm-functions
-	url="$GH_REPO/archive/v${version}.tar.gz"
+	os="$(uname -s | awk '{ print tolower($0) }')"
+	arch="$(uname -m | awk '{if ($0 == "x86_64") {print "amd64"} else {print $0} }')"
+	url="$GH_REPO/releases/download/${version}/image-updater-${os}-${arch}.tar.gz"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
@@ -63,9 +59,7 @@ install_version() {
 		mkdir -p "$install_path"
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
-		# TODO: Assert krm-functions executable exists.
-		local tool_cmd
-		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
+		tool_cmd=$(echo "$version" | awk '{ match($0, /-v[0-9]+\.[0-9]+\.[0-9]+$/); print substr($0, 1, RSTART-1) }')
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
 
 		echo "$TOOL_NAME $version installation was successful!"

@@ -1,8 +1,8 @@
 <div align="center">
 
-# asdf-krm-functions [![Build](https://github.com/imranismail/asdf-krm-functions/actions/workflows/build.yml/badge.svg)](https://github.com/imranismail/asdf-krm-functions/actions/workflows/build.yml) [![Lint](https://github.com/imranismail/asdf-krm-functions/actions/workflows/lint.yml/badge.svg)](https://github.com/imranismail/asdf-krm-functions/actions/workflows/lint.yml)
+# asdf-krm-function [![Test](https://github.com/imranismail/asdf-krm-function/actions/workflows/test.yml/badge.svg)](https://github.com/imranismail/asdf-krm-function/actions/workflows/test.yml) [![Lint](https://github.com/imranismail/asdf-krm-function/actions/workflows/lint.yml/badge.svg)](https://github.com/imranismail/asdf-krm-function/actions/workflows/lint.yml)
 
-[krm-functions](https://github.com/imranismail/asdf-krm-functions) plugin for the [asdf version manager](https://asdf-vm.com).
+[krm-function](https://github.com/imranismail/asdf-krm-function) plugin for the [asdf version manager](https://asdf-vm.com).
 
 </div>
 
@@ -15,35 +15,32 @@
 
 # Dependencies
 
-**TODO: adapt this section**
-
 - `bash`, `curl`, `tar`: generic POSIX utilities.
-- `SOME_ENV_VAR`: set this environment variable in your shell config to load the correct version of tool x.
 
 # Install
 
 Plugin:
 
 ```shell
-asdf plugin add krm-functions
+asdf plugin add krm-function
 # or
-asdf plugin add krm-functions https://github.com/imranismail/asdf-krm-functions.git
+asdf plugin add krm-function https://github.com/imranismail/asdf-krm-function.git
 ```
 
-krm-functions:
+krm-function:
 
 ```shell
 # Show all installable versions
-asdf list-all krm-functions
+asdf list-all krm-function
 
 # Install specific version
-asdf install krm-functions latest
+asdf install krm-function latest
 
 # Set a version globally (on your ~/.tool-versions file)
-asdf global krm-functions latest
+asdf global krm-function latest
 
-# Now krm-functions commands are available
-krm-functions --help
+# Now krm-function commands are available
+krm-function --help
 ```
 
 Check [asdf](https://github.com/asdf-vm/asdf) readme for more instructions on how to
@@ -53,7 +50,7 @@ install & manage versions.
 
 Contributions of any kind welcome! See the [contributing guide](contributing.md).
 
-[Thanks goes to these contributors](https://github.com/imranismail/asdf-krm-functions/graphs/contributors)!
+[Thanks goes to these contributors](https://github.com/imranismail/asdf-krm-function/graphs/contributors)!
 
 # License
 
