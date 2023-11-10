@@ -2,7 +2,7 @@
 
 # asdf-krm-function [![Test](https://github.com/imranismail/asdf-krm-function/actions/workflows/test.yml/badge.svg)](https://github.com/imranismail/asdf-krm-function/actions/workflows/test.yml) [![Lint](https://github.com/imranismail/asdf-krm-function/actions/workflows/lint.yml/badge.svg)](https://github.com/imranismail/asdf-krm-function/actions/workflows/lint.yml)
 
-[krm-function-registry]([https://github.com/imranismail/asdf-krm-function](https://github.com/imranismail/krm-function-registry)) plugin for the [asdf version manager](https://asdf-vm.com).
+[krm-function-registry](https://github.com/imranismail/krm-function-registry) plugin for the [asdf version manager](https://asdf-vm.com).
 
 </div>
 
