@@ -36,19 +36,8 @@ init_asdf() {
   echo "asdf initialization complete"
 }
 
-init_python() {
-  if [[ ! -f "requirements.txt" ]]; then
-    return
-  fi
-
-  echo "Initializing python..."
-  pip install -r requirements.txt
-  echo "Python initialization complete"
-}
-
 init() {
   init_asdf
-  init_python
 }
 
 generate() {

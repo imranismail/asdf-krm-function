@@ -2,7 +2,7 @@ FROM public.ecr.aws/ubuntu/ubuntu:23.04_stable
 
 SHELL ["/usr/bin/env", "-S", "bash", "-cl"]
 
-RUN apt-get update -q && apt-get install -y git curl python3 python3-pip && \
+RUN apt-get update -q && apt-get install -y git curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
