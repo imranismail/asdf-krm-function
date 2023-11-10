@@ -1,0 +1,77 @@
+#!/usr/bin/env -S bash -l
+
+set -euo pipefail
+
+init_asdf() {
+  # if no .tool-versions found return function early
+  if [[ ! -f ".tool-versions" ]]; then
+    return
+  fi
+
+  echo "Initializing asdf..."
+
+  # try to install additional tools
+  error=$(asdf install)
+  errorcode=$?
+
+  # if there are missing plugins, install them and try again
+  if [[ $errorcode -ne 0 ]]; then
+    case $error in
+      *"plugin is not installed"*)
+        missing_plugins=$(echo "$error" | awk '{ print $1 }')
+
+        for plugin in $missing_plugins; do
+          asdf plugin add "$plugin"
+        done
+
+        asdf install
+        ;;
+      *)
+        echo "Error installing dependencies: $error"
+        exit 1
+        ;;
+    esac
+  fi
+
+  echo "asdf initialization complete"
+}
+
+init_python() {
+  if [[ ! -f "requirements.txt" ]]; then
+    return
+  fi
+
+  echo "Initializing python..."
+  pip install -r requirements.txt
+  echo "Python initialization complete"
+}
+
+init() {
+  init_asdf
+  init_python
+}
+
+generate() {
+  kustomize build --enable-alpha-plugins --enable-exec --load-restrictor LoadRestrictionsNone
+}
+
+main() {
+  case "$1" in
+    "init")
+      init
+      ;;
+    "generate")
+      generate
+      ;;
+    *)
+      echo "Unknown command: $1"
+      echo "Usage: $0 <init|generate>"
+      echo ""
+      echo "init: install dependencies"
+      echo "generate: generate kustomize output"
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"

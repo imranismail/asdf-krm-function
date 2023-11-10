@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ConfigManagementPlugin
+metadata:
+  name: asdf-kustomize
+spec:
+  init:
+    command: [plugin]
+    args: [init]
+  generate:
+    command: [plugin]
+    args: [generate]
+  preserveFileMode: true
